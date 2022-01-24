@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Edit Friend Information</title>
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="form-inner-container">
+            <h1>Edit</h1>
+            <form id="edit-form" action="/edit/<%= id %>?_method=PATCH" method="POST">
+                <div class="form-item">
+                    <label for="firstName">First Name: </label>
+                    <input type="text" name="firstName" id="firstName" value="<%= friend.name %>" required>
+                </div>
+                <div class="form-item">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" name="lastName" id="lastName" value="<%= friend.surname %>" required>
+                </div>
+                <div class="form-item">
+                    <!-- TODO Make Formatted Date -->
+                    <label for="birthday">Birth Date: </label>
+                    <input type="text" name="birthday" id="birthday" value="<%= friend.birthday %>" required>
+                </div>
+                <button class="form-item" type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Friend Information</title>
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="form-inner-container">
+            <h1 class="form-header">Birthday Person</h1>
+            <form action="/" id="create-form" method="POST">
+                <div class="form-item">
+                    <label for="firstName">First Name: </label>
+                    <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
+                </div>
+                <div class="form-item">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="form-item">
+                    <!-- TODO Make Formatted Date -->
+                    <label for="birthday">Birth Date: </label>
+                    <input type="text" name="birthday" id="birthday" placeholder="Month, Day" required>
+                </div>
+                <button class="form-item" type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

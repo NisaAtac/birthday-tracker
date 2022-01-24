@@ -11,20 +11,31 @@
 
 <body>
     <div class="container">
-        <div class="header">
-            <h2>First Name</h2>
-            <h2>Last Name</h2>
-            <h2>Birthday</h2>
+        <div class="inner-container">
+            <div class="header">
+                <h2>First Name</h2>
+                <h2>Last Name</h2>
+                <h2>Birthday</h2>
+            </div>
+            <% for (let i = 0; i < people.length; i++) {%>
+            <div class="content">
+                <p><%= people[i].name %> </p>
+                <p><%= people[i].surname %> </p>
+                <p><%= people[i].birthday %> </p>
+                <a class="small-btn" href="/edit/<%= people[i]._id %>">Edit</a>
+                <form id="form-delete" action="/delete/?_method=DELETE" method="POST">
+                    <input type="hidden" name="id" value="<%=people[i]._id%>">
+                    <button class="small-btn" type="submit">Delete</button>
+                </form>
+            </div>
+            <% } %>
+
         </div>
-        <div class="content">
-            <p>Chandler</p>
-            <p>Bing</p>
-            <p>15 February</p>
+        <div class="btn-container">
+            <a class="btn" href="/new">Add Birthday</a>
         </div>
     </div>
-    <div class="btn-container">
-        <button type="button" class="btn">Add Birthday</button>
-    </div>
+
 </body>
 
 </html>
