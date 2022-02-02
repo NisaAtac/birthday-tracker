@@ -1,41 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Birthdays List</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <div class="inner-container">
-            <div class="header">
-                <h2>First Name</h2>
-                <h2>Last Name</h2>
-                <h2>Birthday</h2>
-            </div>
-            <% for (let i = 0; i < people.length; i++) {%>
-            <div class="content">
-                <p><%= people[i].name %> </p>
-                <p><%= people[i].surname %> </p>
-                <p><%= people[i].birthday %> </p>
-                <a class="small-btn" href="/edit/<%= people[i]._id %>">Edit</a>
-                <form id="form-delete" action="/delete/?_method=DELETE" method="POST">
-                    <input type="hidden" name="id" value="<%=people[i]._id%>">
-                    <button class="small-btn" type="submit">Delete</button>
-                </form>
-            </div>
-            <% } %>
-
+      <div class="inner-container">
+        <div class="header">
+          <h2>First Name</h2>
+          <h2>Last Name</h2>
+          <h2>Birthday</h2>
+          <form id="form-months" action="/filter" method="POST">
+            <select name="months" class="small-btn dropdown" id="months">
+              <option value="January" selected>January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+            <input type="submit" value="Filter" class="filter-btn" />
+          </form>
         </div>
-        <div class="btn-container">
-            <a class="btn" href="/new">Add Birthday</a>
+        <% for (let i = 0; i < people.length; i++) {%>
+        <div class="content">
+          <p><%= people[i].name %></p>
+          <p><%= people[i].surname %></p>
+          <p><%= people[i].birthday %></p>
+          <div class="flex">
+            <a class="small-btn" href="/edit/<%=people[i].id%>">Edit</a>
+            <form
+              id="form-delete"
+              action="/delete/?_method=DELETE"
+              method="POST"
+            >
+              <input type="hidden" name="id" value="<%=people[i].id%>" />
+              <button class="small-btn" type="submit">Delete</button>
+            </form>
+          </div>
         </div>
+        <% } %>
+      </div>
+      <div class="btn-container">
+        <a class="btn" href="/new">Add Birthday</a>
+      </div>
     </div>
-
-</body>
-
+  </body>
 </html>

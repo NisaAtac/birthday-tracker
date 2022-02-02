@@ -12,6 +12,8 @@ const personSchema = new mongoose.Schema({
     },
     birthday: {
         type: Date, //change this to type of date
+        min: new Date('1910-01-01'),
+        max: Date.now(),
         required: true
     }
 });
