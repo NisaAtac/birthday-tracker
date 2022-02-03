@@ -63,10 +63,37 @@ app.post("/", (req, res) => {
   createPersonModel(req.body);
   res.redirect("/");
 });
-app.post("/filter", (req, res) => {
+
+app.post("/filter", async (req, res) => {
   console.log("Filtering now..");
-  console.log(req.body);
+  const filterByMonth = req.body.months;
+  let filteredPeople;
+  // console.log(req.body.months);
+  try {
+    // const foundPeople = PersonModel.where("name").equals("hello");
+    const people = await PersonModel.find({});
+    // write a function that takes people and returns the filtered date
+    filteredPeople = filterByDate(people, filterByMonth);
+  } catch (err) {
+    console.log(err);
+  }
+  res.render("index", { people: filteredPeople });
+  // if req.body.months is in months (db) filter those to show
+  // get months (db) and convert .getMonth() to String or vice versa
 });
+
+const filterByDate = (people, filterByMonth) => {
+  let filteredPeople = [];
+  // loop over the people object
+  for (person of people) {
+    // formatDate() return the date in the format 26-3-2001. Only month will be filtered.
+    let formattedDate = formatDate(person.birthday).split("-")[1]; //gives the month
+    if (formattedDate === filterByMonth) {
+      filteredPeople.push(person);
+    }
+  }
+  return filteredPeople;
+};
 
 app.get("/new", (req, res) => {
   res.render("createForm");
