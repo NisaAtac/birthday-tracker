@@ -46,45 +46,17 @@ const formatDate = (date) => {
   return formattedDate;
 };
 
-app.get("/", async (req, res) => {
-  // find all Person model
-  const people = await PersonModel.find({});
-  const peopleFormatted = people.map((person) => {
-    return {
-      name: person.name,
-      surname: person.surname,
-      birthday: formatDate(person.birthday),
-      id: person._id,
-    };
-  });
-  res.render("index", { people: peopleFormatted });
-});
-app.post("/", (req, res) => {
-  createPersonModel(req.body);
-  res.redirect("/");
-});
-
-app.post("/filter", async (req, res) => {
-  console.log("Filtering now..");
-  const filterByMonth = req.body.months;
-  let filteredPeople;
-  // console.log(req.body.months);
-  try {
-    // const foundPeople = PersonModel.where("name").equals("hello");
-    const people = await PersonModel.find({});
-    // write a function that takes people and returns the filtered date
-    filteredPeople = filterByDate(people, filterByMonth);
-  } catch (err) {
-    console.log(err);
+function isObjectEmpty(object) {
+  var isEmpty = true;
+  for (keys in object) {
+    isEmpty = false;
+    break; // exiting since we found that the object is not empty
   }
-  res.render("index", { people: filteredPeople });
-  // if req.body.months is in months (db) filter those to show
-  // get months (db) and convert .getMonth() to String or vice versa
-});
+  return isEmpty;
+}
 
 const filterByDate = (people, filterByMonth) => {
   let filteredPeople = [];
-  // loop over the people object
   for (person of people) {
     // formatDate() return the date in the format 26-3-2001. Only month will be filtered.
     let formattedDate = formatDate(person.birthday).split("-")[1]; //gives the month
@@ -94,6 +66,49 @@ const filterByDate = (people, filterByMonth) => {
   }
   return filteredPeople;
 };
+
+app.get("/", async (req, res) => {
+  // find all Person model
+  const people = await PersonModel.find({});
+  // console.log(req.query);
+  let peopleFormatted;
+  if (isObjectEmpty(req.query) || req.query.months === "all") {
+    // console.log("Query is empty!!");
+    peopleFormatted = people.map((person) => {
+      return {
+        name: person.name,
+        surname: person.surname,
+        birthday: formatDate(person.birthday),
+        id: person._id,
+      };
+    });
+  } else {
+    // console.log("Filtering..");
+    // console.log(req.query.months);
+    const filterByMonth = req.query.months;
+    let filteredPeople;
+    try {
+      // filter by month
+      filteredPeople = filterByDate(people, filterByMonth);
+      peopleFormatted = filteredPeople.map((person) => {
+        return {
+          name: person.name,
+          surname: person.surname,
+          birthday: formatDate(person.birthday),
+          id: person._id,
+        };
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  res.render("index", { people: peopleFormatted });
+});
+
+app.post("/", (req, res) => {
+  createPersonModel(req.body);
+  res.redirect("/");
+});
 
 app.get("/new", (req, res) => {
   res.render("createForm");

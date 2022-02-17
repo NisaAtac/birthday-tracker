@@ -15,9 +15,12 @@
           <h2>First Name</h2>
           <h2>Last Name</h2>
           <h2>Birthday</h2>
-          <form id="form-months" action="/filter" method="POST">
+          <form id="form-months" action="/" method="GET">
             <select name="months" class="small-btn dropdown" id="months">
-              <option value="1" selected>January</option>
+              <!-- TODO change selected attribute to the current one -->
+              <!-- Value  -->
+              <option value="all" selected>All</option>
+              <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
               <option value="4">April</option>
