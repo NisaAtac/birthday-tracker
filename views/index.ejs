@@ -4,59 +4,50 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Birthdays List</title>
+    <link rel="stylesheet" href="/style.css" />
+    <title>Home</title>
   </head>
 
   <body>
-    <div class="container">
-      <div class="inner-container">
-        <div class="header">
-          <h2>First Name</h2>
-          <h2>Last Name</h2>
-          <h2>Birthday</h2>
-          <form id="form-months" action="/" method="GET">
-            <select name="months" class="small-btn dropdown" id="months">
-              <!-- TODO change selected attribute to the current one -->
-              <!-- Value  -->
-              <option value="all" selected>All</option>
-              <option value="1">January</option>
-              <option value="2">February</option>
-              <option value="3">March</option>
-              <option value="4">April</option>
-              <option value="5">May</option>
-              <option value="6">June</option>
-              <option value="7">July</option>
-              <option value="8">August</option>
-              <option value="9">September</option>
-              <option value="10">October</option>
-              <option value="11">November</option>
-              <option value="12">December</option>
-            </select>
-            <input type="submit" value="Filter" class="filter-btn" />
-          </form>
-        </div>
-        <% for (let i = 0; i < people.length; i++) {%>
-        <div class="content">
-          <p><%= people[i].name %></p>
-          <p><%= people[i].surname %></p>
-          <p><%= people[i].birthday %></p>
-          <div class="flex">
-            <a class="small-btn" href="/edit/<%=people[i].id%>">Edit</a>
-            <form
-              id="form-delete"
-              action="/delete/?_method=DELETE"
-              method="POST"
-            >
-              <input type="hidden" name="id" value="<%=people[i].id%>" />
-              <button class="small-btn" type="submit">Delete</button>
-            </form>
-          </div>
-        </div>
-        <% } %>
+    <div class="form-container">
+      <div>
+        <h1 class="login-header">birthday tracker</h1>
+        <p class="login-description">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum sapiente
+          libero laudantium, neque odio laboriosam obcaecati explicabo sunt illo
+          expedita ratione eaque mollitia, labore similique est tenetur iste
+          esse in! Blanditiis quo est expedita voluptas adipisci, veritatis
+          cumque odit nisi? In vitae illum obcaecati ullam quasi delectus cum
+          nemo earum.
+        </p>
       </div>
-      <div class="btn-container">
-        <a class="btn" href="/new">Add Birthday</a>
+      <div class="form-inner-container">
+        <!-- TODO change the action for the specific user logged in -->
+        <form action="/birthday" id="create-form" method="POST">
+          <div class="form-item">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button class="form-item" type="submit">Log In</button>
+          <a href="" class="forgot-psw">Forgot Password</a>
+          <a href="" class="new-account">Create new account</a>
+        </form>
       </div>
     </div>
   </body>

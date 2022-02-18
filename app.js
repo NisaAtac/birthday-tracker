@@ -67,7 +67,7 @@ const filterByDate = (people, filterByMonth) => {
   return filteredPeople;
 };
 
-app.get("/", async (req, res) => {
+app.get("/birthday", async (req, res) => {
   // find all Person model
   const people = await PersonModel.find({});
   // console.log(req.query);
@@ -102,12 +102,20 @@ app.get("/", async (req, res) => {
       console.log(err);
     }
   }
-  res.render("index", { people: peopleFormatted });
+  res.render("birthday", { people: peopleFormatted });
 });
 
-app.post("/", (req, res) => {
+app.post("/birthday", (req, res) => {
   createPersonModel(req.body);
-  res.redirect("/");
+  res.redirect("birthday");
+});
+
+app.get("/", (req, res) => {
+  console.log("getting /birthday..");
+  res.render("index");
+});
+app.post("/", (req, res) => {
+  res.redirect("index");
 });
 
 app.get("/new", (req, res) => {
@@ -136,16 +144,16 @@ app.patch("/edit/:id", async (req, res) => {
   } catch (e) {
     console.log(e);
   }
-  res.redirect("/");
+  res.redirect("/birthday");
 });
 
-app.delete("/delete", async (req, res) => {
+app.delete("/birthday/delete", async (req, res) => {
   try {
     await PersonModel.findByIdAndDelete({ _id: req.body.id });
   } catch (e) {
     console.log(e);
   }
-  res.redirect("/");
+  res.redirect("/birthday");
 });
 
 app.listen(3000);
